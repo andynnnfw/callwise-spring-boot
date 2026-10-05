@@ -1,30 +1,30 @@
 # Callwise
 
-Sistema de gerenciamento de filas com painel em tempo real. O atendente chama a próxima senha e o painel público atualiza instantaneamente, sem recarregar a página.
+Queue management system with a real-time display panel. The attendant calls the next ticket and the public panel updates instantly, without reloading the page.
 
-> 🚧 Em desenvolvimento
+> 🚧 Work in progress
 
-## Funcionalidades
+## Features
 
-- [ ] Emissão de senha normal e prioritária
-- [ ] Fila com prioridade (2 normais, 1 prioritária)
-- [ ] Tela do atendente: chamar, rechamar, finalizar, ausente
-- [ ] Painel público em tempo real com aviso sonoro
-- [ ] Login do atendente
-- [ ] Deploy online
+- [ ] Issue regular and priority tickets
+- [ ] Priority queue (2 regular, 1 priority)
+- [ ] Attendant screen: call, recall, finish, mark as absent
+- [ ] Real-time public panel with sound alert
+- [ ] Attendant login
+- [ ] Online deployment
 
-## Tecnologias
+## Tech stack
 
-Java 21 · Spring Boot · Spring WebSocket · Spring Data JPA · PostgreSQL · HTML, CSS e JavaScript
+Java 21 · Spring Boot · Spring WebSocket · Spring Data JPA · PostgreSQL · HTML, CSS and JavaScript
 
-## Como rodar
+## How to run
 
-_Em breve._
+_Coming soon._
 
-## Prints
+## Screenshots
 
-_Em breve._
+_Coming soon._
 
-## Autor
+## Author
 
 Anderson Melo do Nascimento
