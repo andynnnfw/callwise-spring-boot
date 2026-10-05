@@ -3,11 +3,11 @@ services:
     image: postgres:16
     container_name: callwise-db
     environment:
-      POSTGRES_DB: callwise
-      POSTGRES_USER: callwise
-      POSTGRES_PASSWORD: callwise
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5433:5432"
+      - "${DB_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
 
