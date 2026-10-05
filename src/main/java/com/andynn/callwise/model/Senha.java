@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "senha", uniqueConstraints = @UniqueConstraint(columnNames = {"tipo", "data_emissao", "numero"}))
 @Getter @Setter @NoArgsConstructor
 public class Senha {
     
