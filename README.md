@@ -1,30 +1,45 @@
 # Callwise
 
-Sistema de gerenciamento de filas com painel em tempo real. O atendente chama a próxima senha e o painel público atualiza instantaneamente, sem recarregar a página.
+Queue management system with a real-time display panel. The attendant calls the next ticket and the public panel updates instantly, without reloading the page.
 
-> 🚧 Em desenvolvimento
+> 🚧 Work in progress
 
-## Funcionalidades
+## Features
 
-- [ ] Emissão de senha normal e prioritária
-- [ ] Fila com prioridade (2 normais, 1 prioritária)
-- [ ] Tela do atendente: chamar, rechamar, finalizar, ausente
-- [ ] Painel público em tempo real com aviso sonoro
-- [ ] Login do atendente
-- [ ] Deploy online
+- [ ] Issue regular and priority tickets
+- [ ] Priority queue (2 regular, 1 priority)
+- [ ] Attendant screen: call, recall, finish, mark as absent
+- [ ] Real-time public panel with sound alert
+- [ ] Attendant login
+- [ ] Online deployment
 
-## Tecnologias
+## Tech stack
 
-Java 21 · Spring Boot · Spring WebSocket · Spring Data JPA · PostgreSQL · HTML, CSS e JavaScript
+Java 21 · Spring Boot · Spring WebSocket · Spring Data JPA · PostgreSQL · Docker · HTML, CSS and JavaScript
 
-## Como rodar
+## How to run
 
-_Em breve._
+Requirements: Java 21 and Docker.
 
-## Prints
+1. Copy the environment template and set your own database password:
+   ```bash
+   cp .env.example .env
+   ```
+2. Start PostgreSQL:
+   ```bash
+   docker compose up -d
+   ```
+3. Run the application:
+   ```bash
+   ./mvnw spring-boot:run        # Linux / macOS
+   .\mvnw.cmd spring-boot:run    # Windows
+   ```
+4. The app runs at `http://localhost:8080`.
 
-_Em breve._
+## Screenshots
 
-## Autor
+_Coming soon._
+
+## Author
 
 Anderson Melo do Nascimento
