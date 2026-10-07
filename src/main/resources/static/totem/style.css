@@ -1,0 +1,349 @@
+/* ---------- Cores (claro e escuro) ---------- */
+
+:root {
+    --fundo: #f5f5f7;
+    --superficie: #ffffff;
+    --texto: #1d1d1f;
+    --texto-secundario: #6e6e73;
+    --linha: #d2d2d7;
+    --azul: #0071e3;
+    --azul-suave: #e8f2fd;
+    --laranja: #b25000;
+    --laranja-suave: #fff1e0;
+    --erro: #b3261e;
+    --erro-suave: #fdeceb;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fundo: #000000;
+        --superficie: #1c1c1e;
+        --texto: #f5f5f7;
+        --texto-secundario: #a1a1a6;
+        --linha: #38383a;
+        --azul: #0a84ff;
+        --azul-suave: #0a2a4d;
+        --laranja: #ff9f0a;
+        --laranja-suave: #3d2a05;
+        --erro: #ff6961;
+        --erro-suave: #3b1513;
+        --sombra: none;
+    }
+}
+
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.totem {
+    width: 100%;
+    max-width: 960px;
+    padding: 40px 24px;
+}
+
+.tela {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* ---------- Tela 1: escolha ---------- */
+
+.marca {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--texto-secundario);
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+.instrucao {
+    font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+    color: var(--texto-secundario);
+    margin-top: 12px;
+    margin-bottom: 48px;
+}
+
+.opcoes {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.opcao {
+    min-height: 280px;
+    padding: 36px 28px;
+    border: none;
+    border-radius: 32px;
+    background: var(--superficie);
+    color: var(--texto);
+    box-shadow: var(--sombra);
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.opcao-icone {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+}
+
+.opcao-icone svg {
+    width: 40px;
+    height: 40px;
+}
+
+.opcao-normal .opcao-icone {
+    background: var(--azul-suave);
+    color: var(--azul);
+}
+
+.opcao-prioritaria .opcao-icone {
+    background: var(--laranja-suave);
+    color: var(--laranja);
+}
+
+.opcao-titulo {
+    font-size: clamp(1.75rem, 3.4vw, 2.25rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.opcao-descricao {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    color: var(--texto-secundario);
+    max-width: 22ch;
+    /* reserva duas linhas para os dois cartões ficarem alinhados */
+    min-height: 2.7em;
+}
+
+.opcao:hover {
+    transform: translateY(-2px);
+}
+
+.opcao:active {
+    transform: scale(0.97);
+}
+
+.opcao:focus-visible,
+.botao-concluir:focus-visible {
+    outline: 4px solid var(--azul);
+    outline-offset: 4px;
+}
+
+.opcao:disabled {
+    opacity: 0.45;
+    cursor: wait;
+    transform: none;
+}
+
+.erro {
+    margin-top: 28px;
+    padding: 16px 22px;
+    border-radius: 18px;
+    background: var(--erro-suave);
+    color: var(--erro);
+    font-size: 1.0625rem;
+    font-weight: 500;
+}
+
+/* ---------- Tela 2: senha emitida (o bilhete) ---------- */
+
+.bilhete {
+    width: min(100%, 440px);
+    background: var(--superficie);
+    border-radius: 32px;
+    box-shadow: var(--sombra);
+    animation: bilhete-entra 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+
+.bilhete-topo {
+    padding: 40px 24px 28px;
+}
+
+.bilhete-rotulo {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--texto-secundario);
+}
+
+.bilhete-codigo {
+    font-size: clamp(5rem, 17vw, 8.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-top: 8px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* linha de picote com os dois recortes laterais, como um bilhete de papel */
+.bilhete-picote {
+    position: relative;
+    height: 0;
+    margin: 0 28px;
+    border-top: 2px dashed var(--linha);
+}
+
+.bilhete-picote::before,
+.bilhete-picote::after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--fundo);
+}
+
+.bilhete-picote::before {
+    left: -42px;
+}
+
+.bilhete-picote::after {
+    right: -42px;
+}
+
+.bilhete-rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 32px 26px;
+    font-size: 1.0625rem;
+}
+
+.bilhete-tipo {
+    font-weight: 600;
+}
+
+.bilhete-tipo.normal {
+    color: var(--azul);
+}
+
+.bilhete-tipo.prioritaria {
+    color: var(--laranja);
+}
+
+.bilhete-horario {
+    color: var(--texto-secundario);
+    font-variant-numeric: tabular-nums;
+}
+
+.aviso {
+    font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+    font-weight: 500;
+    margin-top: 36px;
+}
+
+.botao-concluir {
+    margin-top: 28px;
+    min-width: 240px;
+    min-height: 60px;
+    padding: 0 36px;
+    border: none;
+    border-radius: 999px;
+    background: var(--azul);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.botao-concluir:hover {
+    filter: brightness(1.08);
+}
+
+.botao-concluir:active {
+    transform: scale(0.97);
+}
+
+.contagem {
+    margin-top: 16px;
+    min-height: 1.4em;
+    font-size: 1rem;
+    color: var(--texto-secundario);
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes bilhete-entra {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ---------- Acessibilidade ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .bilhete {
+        animation: none;
+    }
+
+    .opcao,
+    .botao-concluir {
+        transition: none;
+    }
+
+    .opcao:hover,
+    .opcao:active,
+    .botao-concluir:active {
+        transform: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .totem {
+        padding: 28px 16px;
+    }
+
+    .instrucao {
+        margin-bottom: 32px;
+    }
+
+    .opcao {
+        min-height: 220px;
+    }
+}
