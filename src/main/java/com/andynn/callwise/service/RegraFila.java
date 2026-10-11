@@ -9,7 +9,7 @@ public class RegraFila {
         if (!temNormal && !temPrioritaria){
             return Optional.empty();
         }
-        if (temPrioritaria && (normaisSeguidas >=2 ) || !temNormal){
+        if (temPrioritaria && (normaisSeguidas >= 2 || !temNormal)){
             return Optional.of(TipoSenha.PRIORITARIA);
         }
         return Optional.of(TipoSenha.NORMAL);
