@@ -6,8 +6,10 @@ import com.andynn.callwise.model.StatusSenha;
 import com.andynn.callwise.model.TipoSenha;
 import com.andynn.callwise.repository.SenhaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,6 +39,41 @@ public class FilaService {
                 senha.setStatus(StatusSenha.CHAMADA);
                 senha.setChamadaEm(LocalDateTime.now());
                 return Optional.of(senha);
+    }
+
+    @Transactional
+    public Senha finalizar(Long id){
+        Senha senha = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+        if (senha.getStatus() != StatusSenha.CHAMADA){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+        }
+        senha.setStatus(StatusSenha.ATENDIDA);
+        senha.setFinalizadaEm(LocalDateTime.now());
+        return senha;
+    }
+
+    @Transactional
+    public Senha marcarAusente(Long id){
+        Senha senha = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+        if (senha.getStatus() != StatusSenha.CHAMADA){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+        }
+        senha.setStatus(StatusSenha.AUSENTE);
+        senha.setFinalizadaEm(LocalDateTime.now());
+        return senha;
+    }
+
+    @Transactional
+    public Senha rechamar(Long id){
+        Senha senha = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+        if (senha.getStatus() != StatusSenha.CHAMADA){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+        }
+        senha.setChamadaEm(LocalDateTime.now());
+        return senha;
     }
 
     private int contarNormaisSeguidas(LocalDate hoje) {
