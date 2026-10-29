@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Callwise - Atendente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="atendente">
+
+        <header class="cabecalho">
+            <p class="marca">Callwise</p>
+            <h1>Atendimento</h1>
+        </header>
+
+        <!-- Estado 1: livre, esperando para chamar alguém -->
+        <section id="livre" class="cartao livre">
+            <h2>Nenhuma senha em atendimento</h2>
+            <p class="explicacao">
+                Quando estiver livre, chame a próxima pessoa da fila.
+                A senha aparece no painel da sala de espera.
+            </p>
+            <button id="btn-chamar" class="botao botao-principal botao-grande" type="button">Chamar próxima</button>
+        </section>
+
+        <!-- Estado 2: atendendo uma senha -->
+        <section id="ocupado" class="cartao ocupado" hidden>
+            <p class="rotulo">Em atendimento</p>
+            <div class="senha">
+                <p id="codigo" class="senha-codigo"></p>
+                <p id="tipo" class="senha-tipo"></p>
+            </div>
+            <p id="retirada" class="retirada"></p>
+
+            <div class="acoes">
+                <button id="btn-rechamar" class="botao botao-secundario" type="button">Rechamar</button>
+                <button id="btn-ausente" class="botao botao-secundario" type="button">Marcar ausente</button>
+                <button id="btn-finalizar" class="botao botao-principal" type="button">Finalizar atendimento</button>
+            </div>
+        </section>
+
+        <p id="aviso" class="aviso" role="status" aria-live="polite"></p>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
