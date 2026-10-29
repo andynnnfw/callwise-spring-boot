@@ -44,9 +44,9 @@ public class FilaService {
     @Transactional
     public Senha finalizar(Long id){
         Senha senha = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Senha não encontrada"));
         if (senha.getStatus() != StatusSenha.CHAMADA){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esta senha não está em atendimento");
         }
         senha.setStatus(StatusSenha.ATENDIDA);
         senha.setFinalizadaEm(LocalDateTime.now());
@@ -56,9 +56,9 @@ public class FilaService {
     @Transactional
     public Senha marcarAusente(Long id){
         Senha senha = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Senha não encontrada"));
         if (senha.getStatus() != StatusSenha.CHAMADA){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esta senha não está em atendimento");
         }
         senha.setStatus(StatusSenha.AUSENTE);
         senha.setFinalizadaEm(LocalDateTime.now());
@@ -68,9 +68,9 @@ public class FilaService {
     @Transactional
     public Senha rechamar(Long id){
         Senha senha = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "senha nao encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Senha não encontrada"));
         if (senha.getStatus() != StatusSenha.CHAMADA){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "esta senha nao foi chamada");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Esta senha não está em atendimento");
         }
         senha.setChamadaEm(LocalDateTime.now());
         return senha;
