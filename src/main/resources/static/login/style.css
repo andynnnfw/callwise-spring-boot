@@ -1,0 +1,245 @@
+/* ---------- Cores (claro e escuro, iguais às do totem e do atendente) ---------- */
+
+:root {
+    --fundo: #f5f5f7;
+    --superficie: #ffffff;
+    --texto: #1d1d1f;
+    --texto-secundario: #6e6e73;
+    --neutro: #e8e8ed;
+    --linha: #d2d2d7;
+    --azul: #0071e3;
+    --erro: #b3261e;
+    --erro-suave: #fdeceb;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fundo: #000000;
+        --superficie: #1c1c1e;
+        --texto: #f5f5f7;
+        --texto-secundario: #a1a1a6;
+        --neutro: #2c2c2e;
+        --linha: #38383a;
+        --azul: #0a84ff;
+        --erro: #ff6961;
+        --erro-suave: #3b1513;
+        --sombra: none;
+    }
+}
+
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.login {
+    width: 100%;
+    max-width: 440px;
+    padding: 56px 24px;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.cabecalho {
+    margin-bottom: 28px;
+}
+
+.marca {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--texto-secundario);
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+.instrucao {
+    margin-top: 8px;
+    font-size: 1.0625rem;
+    color: var(--texto-secundario);
+}
+
+/* ---------- Aviso (erro, saída, sessão expirada) ---------- */
+
+.aviso {
+    margin-bottom: 16px;
+    padding: 14px 20px;
+    border-radius: 18px;
+    background: var(--neutro);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.aviso.erro {
+    background: var(--erro-suave);
+    color: var(--erro);
+}
+
+/* ---------- Formulário ---------- */
+
+.cartao {
+    background: var(--superficie);
+    border-radius: 28px;
+    box-shadow: var(--sombra);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.campo input {
+    min-height: 52px;
+    padding: 0 16px;
+    border: 1px solid var(--linha);
+    border-radius: 14px;
+    background: var(--superficie);
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 1.0625rem;
+}
+
+.campo input:focus-visible {
+    outline: 3px solid var(--azul);
+    outline-offset: 1px;
+    border-color: transparent;
+}
+
+/* ---------- Botões ---------- */
+
+.botao {
+    min-height: 56px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.botao-principal {
+    margin-top: 4px;
+    background: var(--azul);
+    color: #ffffff;
+}
+
+.botao-secundario {
+    width: 100%;
+    background: var(--neutro);
+    color: var(--texto);
+}
+
+.botao:hover {
+    filter: brightness(1.06);
+}
+
+.botao:active {
+    transform: scale(0.97);
+}
+
+.botao:focus-visible {
+    outline: 4px solid var(--azul);
+    outline-offset: 3px;
+}
+
+/* ---------- Conta de demonstração ---------- */
+
+.demo {
+    margin-top: 32px;
+    padding: 24px;
+    border: 1px dashed var(--linha);
+    border-radius: 24px;
+}
+
+.demo h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.demo p {
+    margin-top: 6px;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    color: var(--texto-secundario);
+}
+
+.demo-dados {
+    margin: 16px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.demo-dados dt {
+    font-size: 0.875rem;
+    color: var(--texto-secundario);
+}
+
+.demo-dados dd {
+    margin-top: 2px;
+    font-size: 1.0625rem;
+    font-weight: 600;
+}
+
+.demo .demo-telas {
+    margin-top: 16px;
+}
+
+.demo a {
+    color: var(--azul);
+    font-weight: 600;
+}
+
+/* ---------- Acessibilidade ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .botao {
+        transition: none;
+    }
+
+    .botao:active {
+        transform: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .login {
+        padding: 32px 16px;
+    }
+
+    .cartao {
+        padding: 24px;
+    }
+}

@@ -11,8 +11,14 @@
     <main class="atendente">
 
         <header class="cabecalho">
-            <p class="marca">Callwise</p>
-            <h1>Atendimento</h1>
+            <div>
+                <p class="marca">Callwise</p>
+                <h1>Atendimento</h1>
+            </div>
+            <!-- O Spring Security encerra a sessão em POST /logout -->
+            <form method="post" action="/logout">
+                <button class="botao botao-sair" type="submit">Sair</button>
+            </form>
         </header>
 
         <!-- Estado 1: livre, esperando para chamar alguém -->
