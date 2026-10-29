@@ -98,8 +98,21 @@ async function executar(acao) {
     }
 }
 
+// Faz o POST na API da fila. Se a sessão de login terminou, o servidor responde 401
+// (ou redireciona para o login) e a tela vai direto para a página de login.
+async function postarNaFila(caminho) {
+    const resposta = await fetch('/api/fila' + caminho, { method: 'POST' });
+    if (resposta.status === 401 || resposta.redirected) {
+        window.location.href = '/login/index.html?expirou';
+        // A página vai mudar: a promessa nunca termina, então a ação para aqui
+        // e os botões ficam bloqueados até a troca de página.
+        return new Promise(() => {});
+    }
+    return resposta;
+}
+
 async function chamarProxima() {
-    const resposta = await fetch('/api/fila/chamar', { method: 'POST' });
+    const resposta = await postarNaFila('/chamar');
 
     if (resposta.status === 204) {
         avisar('Ninguém aguardando na fila agora.');
@@ -118,7 +131,7 @@ async function chamarProxima() {
 // Rechamar, marcar ausente e finalizar agem sobre a senha em atendimento.
 async function agirNaSenhaAtual(acao, encerraAtendimento, mensagem) {
     const senha = senhaAtual;
-    const resposta = await fetch('/api/fila/' + senha.id + '/' + acao, { method: 'POST' });
+    const resposta = await postarNaFila('/' + senha.id + '/' + acao);
 
     // 404: a senha não existe mais. 409: ela já não está chamada (foi encerrada em outro lugar).
     // Nos dois casos a tela volta a ficar livre para chamar a próxima.
