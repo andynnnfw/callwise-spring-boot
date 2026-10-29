@@ -14,10 +14,16 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/totem/**", "/painel/**", "/ws/**", "/error").permitAll()
+                        .requestMatchers("/totem/**", "/painel/**", "/ws/**", "/login/**", "/error").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/senhas").permitAll()
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form
+                        .loginPage("/login/index.html")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/atendente/index.html", true)
+                        .failureUrl("/login/index.html?erro"))
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login/index.html?saiu"));
 
         return http.build();
     }
