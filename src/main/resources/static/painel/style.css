@@ -1,0 +1,393 @@
+/* ---------- Cores ---------- */
+
+/* O painel fica ligado o dia todo numa TV: tema escuro fixo, igual em qualquer aparelho.
+   Os tons são os mesmos do modo escuro do totem. */
+:root {
+    --fundo: #000000;
+    --superficie: #1c1c1e;
+    --texto: #f5f5f7;
+    --texto-secundario: #a1a1a6;
+    --linha: #38383a;
+    --azul: #0a84ff;
+    --azul-suave: #0a2a4d;
+    --laranja: #ff9f0a;
+    --laranja-suave: #3d2a05;
+    --verde: #30d158;
+    --erro: #ff6961;
+    --erro-suave: #3b1513;
+}
+
+/* ---------- Base ---------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+}
+
+.marca {
+    font-size: clamp(1rem, 1.4vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--texto-secundario);
+}
+
+/* ---------- Tela de ativação ---------- */
+
+.ativar {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.ativar h1 {
+    margin-top: 16px;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+}
+
+.ativar-texto {
+    max-width: 34ch;
+    margin: 16px 0 40px;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--texto-secundario);
+}
+
+.botao-ativar {
+    min-width: 260px;
+    min-height: 64px;
+    padding: 0 40px;
+    border: none;
+    border-radius: 999px;
+    background: var(--azul);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1.375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.botao-ativar:hover {
+    filter: brightness(1.08);
+}
+
+.botao-ativar:active {
+    transform: scale(0.97);
+}
+
+.botao-ativar:focus-visible {
+    outline: 4px solid var(--azul);
+    outline-offset: 4px;
+}
+
+.erro {
+    margin-top: 28px;
+    max-width: 40ch;
+    padding: 16px 22px;
+    border-radius: 18px;
+    background: var(--erro-suave);
+    color: var(--erro);
+    font-size: 1.0625rem;
+    font-weight: 500;
+}
+
+/* ---------- Painel ---------- */
+
+.painel {
+    height: 100vh;
+    height: 100dvh;
+    padding: clamp(16px, 2.5vw, 48px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(260px, 26vw, 480px);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+        "topo topo"
+        "chamada historico"
+        "rodape rodape";
+    gap: clamp(16px, 2vw, 40px);
+}
+
+.topo {
+    grid-area: topo;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.relogio {
+    font-size: clamp(1.5rem, 2.6vw, 3rem);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Senha chamada ---------- */
+
+.chamada {
+    --cor-tipo: var(--azul);
+    grid-area: chamada;
+    position: relative;
+    overflow: hidden;
+    padding: clamp(24px, 3vw, 64px);
+    border-radius: clamp(24px, 2.4vw, 48px);
+    background: var(--superficie);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.chamada.prioritaria {
+    --cor-tipo: var(--laranja);
+}
+
+/* brilho na cor do tipo que pisca quando chega uma chamada (fica atrás do texto) */
+.chamada::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cor-tipo);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.chamada-rotulo {
+    position: relative;
+    font-size: clamp(1.5rem, 2.8vw, 3.25rem);
+    font-weight: 500;
+    color: var(--texto-secundario);
+}
+
+.chamada-codigo {
+    position: relative;
+    font-size: clamp(6rem, 19vw, 26rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    font-variant-numeric: tabular-nums;
+}
+
+.chamada-tipo {
+    position: relative;
+    margin-top: 0.5em;
+    padding: 0.2em 0.85em;
+    border-radius: 999px;
+    font-size: clamp(1.5rem, 2.8vw, 3.25rem);
+    font-weight: 600;
+    background: var(--azul-suave);
+    color: var(--azul);
+}
+
+.chamada.prioritaria .chamada-tipo {
+    background: var(--laranja-suave);
+    color: var(--laranja);
+}
+
+.chamada-vazia {
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    font-weight: 500;
+    color: var(--texto-secundario);
+}
+
+.chamada.vazia .chamada-rotulo,
+.chamada.vazia .chamada-codigo,
+.chamada.vazia .chamada-tipo,
+.chamada:not(.vazia) .chamada-vazia {
+    display: none;
+}
+
+.chamada.chegou .chamada-codigo {
+    animation: codigo-chega 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+
+.chamada.chegou::before {
+    animation: pisca 3.2s ease-out both;
+}
+
+@keyframes codigo-chega {
+    from {
+        opacity: 0;
+        transform: translateY(0.08em) scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes pisca {
+    0%   { opacity: 0; }
+    8%   { opacity: 0.32; }
+    28%  { opacity: 0.04; }
+    40%  { opacity: 0.32; }
+    62%  { opacity: 0.04; }
+    100% { opacity: 0; }
+}
+
+/* ---------- Chamadas anteriores ---------- */
+
+.historico {
+    grid-area: historico;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.historico h2 {
+    font-size: clamp(1.125rem, 1.6vw, 1.75rem);
+    font-weight: 600;
+    color: var(--texto-secundario);
+    margin-bottom: clamp(16px, 1.6vw, 28px);
+}
+
+.historico-lista {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.4vw, 24px);
+    overflow: hidden;
+}
+
+.historico-item {
+    --cor-tipo: var(--azul);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.6em;
+    align-items: center;
+    padding-left: clamp(12px, 1vw, 20px);
+    border-left: clamp(5px, 0.4vw, 8px) solid var(--cor-tipo);
+}
+
+.historico-item.prioritaria {
+    --cor-tipo: var(--laranja);
+}
+
+.historico-codigo {
+    grid-row: 1 / 3;
+    font-size: clamp(2rem, 3.6vw, 4.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.historico-tipo,
+.historico-hora {
+    justify-self: end;
+    font-size: clamp(0.9375rem, 1.2vw, 1.375rem);
+}
+
+.historico-tipo {
+    font-weight: 600;
+    color: var(--cor-tipo);
+}
+
+.historico-hora {
+    color: var(--texto-secundario);
+    font-variant-numeric: tabular-nums;
+}
+
+.historico-vazio {
+    font-size: clamp(1rem, 1.3vw, 1.375rem);
+    line-height: 1.4;
+    color: var(--texto-secundario);
+}
+
+/* ---------- Conexão ---------- */
+
+.rodape {
+    grid-area: rodape;
+}
+
+.conexao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(0.875rem, 1vw, 1.125rem);
+    color: var(--texto-secundario);
+}
+
+.conexao::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--texto-secundario);
+}
+
+.conexao.conectado::before {
+    background: var(--verde);
+}
+
+.conexao.desconectado {
+    color: var(--erro);
+}
+
+.conexao.desconectado::before {
+    background: var(--erro);
+}
+
+/* ---------- Telas menores (celular, TV na vertical) ---------- */
+
+@media (max-width: 900px), (orientation: portrait) {
+    .painel {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "topo"
+            "chamada"
+            "historico"
+            "rodape";
+    }
+
+    .chamada {
+        min-height: 50vh;
+    }
+
+    .chamada-codigo {
+        font-size: clamp(6rem, 28vw, 22rem);
+    }
+}
+
+/* ---------- Acessibilidade ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .chamada.chegou .chamada-codigo,
+    .chamada.chegou::before {
+        animation: none;
+    }
+
+    .botao-ativar {
+        transition: none;
+    }
+
+    .botao-ativar:active {
+        transform: none;
+    }
+}
