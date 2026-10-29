@@ -3,6 +3,7 @@ package com.andynn.callwise.controller;
 import com.andynn.callwise.dto.SenhaResponse;
 import com.andynn.callwise.model.Senha;
 import com.andynn.callwise.service.FilaService;
+import com.andynn.callwise.service.PainelService;
 import com.andynn.callwise.service.SenhaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FilaController {
     private final FilaService service;
+    private final PainelService painelService;
 
     @PostMapping("/chamar")
     public ResponseEntity<SenhaResponse> chamarProxima(){
@@ -25,7 +27,9 @@ public class FilaController {
         if (senha.isEmpty()){
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(SenhaResponse.de(senha.get()));
+        SenhaResponse response = SenhaResponse.de(senha.get());
+        painelService.anunciar(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/{id}/finalizar")
@@ -40,6 +44,8 @@ public class FilaController {
 
     @PostMapping("/{id}/rechamar")
     public SenhaResponse rechamar(@PathVariable Long id){
-        return SenhaResponse.de(service.rechamar(id));
+        SenhaResponse response = SenhaResponse.de(service.rechamar(id));
+        painelService.anunciar(response);
+        return response;
     }
 }
