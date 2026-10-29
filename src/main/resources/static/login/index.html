@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>Callwise - Entrar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="login">
+
+        <header class="cabecalho">
+            <p class="marca">Callwise</p>
+            <h1>Entrar</h1>
+            <p class="instrucao">Acesso da tela do atendente</p>
+        </header>
+
+        <p id="aviso" class="aviso" role="alert" hidden></p>
+
+        <!-- O Spring Security recebe o formulário em POST /login, com os campos username e password -->
+        <form class="cartao" method="post" action="/login">
+            <label class="campo">
+                <span>Usuário</span>
+                <input id="usuario" name="username" type="text" autocomplete="username" required autofocus>
+            </label>
+            <label class="campo">
+                <span>Senha</span>
+                <input id="senha" name="password" type="password" autocomplete="current-password" required>
+            </label>
+            <button id="btn-entrar" class="botao botao-principal" type="submit">Entrar</button>
+        </form>
+
+        <section class="demo" aria-labelledby="titulo-demo">
+            <h2 id="titulo-demo">Conta de demonstração</h2>
+            <p>Este projeto é uma demonstração. Use esta conta para testar a tela do atendente:</p>
+            <dl class="demo-dados">
+                <div>
+                    <dt>Usuário</dt>
+                    <dd id="demo-usuario">atendente</dd>
+                </div>
+                <div>
+                    <dt>Senha</dt>
+                    <dd id="demo-senha">callwise-demo</dd>
+                </div>
+            </dl>
+            <button id="btn-demo" class="botao botao-secundario" type="button">Preencher os campos</button>
+            <p class="demo-telas">
+                Para ver o fluxo completo, abra também o <a href="/totem/index.html" target="_blank">totem</a>
+                e o <a href="/painel/index.html" target="_blank">painel</a> em outras abas.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
