@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Callwise - Painel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Tela de ativação: o navegador só libera o som depois de um clique -->
+    <section id="tela-ativar" class="ativar">
+        <p class="marca">Callwise</p>
+        <h1>Painel de chamadas</h1>
+        <p class="ativar-texto">
+            A cada senha chamada, o painel mostra o código e toca um aviso sonoro.
+            Ative para liberar o som neste aparelho.
+        </p>
+        <button id="btn-ativar" class="botao-ativar" type="button" autofocus>Ativar painel</button>
+        <p id="erro-carregar" class="erro" role="alert" hidden></p>
+    </section>
+
+    <!-- Painel -->
+    <main id="painel" class="painel" hidden>
+        <header class="topo">
+            <p class="marca">Callwise</p>
+            <p id="relogio" class="relogio"></p>
+        </header>
+
+        <section id="chamada" class="chamada vazia" aria-live="assertive" aria-atomic="true">
+            <p class="chamada-rotulo">Senha</p>
+            <p id="codigo" class="chamada-codigo"></p>
+            <p id="tipo" class="chamada-tipo"></p>
+            <p class="chamada-vazia">Aguardando a primeira chamada</p>
+        </section>
+
+        <aside class="historico">
+            <h2>Chamadas anteriores</h2>
+            <ol id="lista-historico" class="historico-lista"></ol>
+            <p id="historico-vazio" class="historico-vazio">As últimas senhas chamadas aparecem aqui.</p>
+        </aside>
+
+        <footer class="rodape">
+            <p id="conexao" class="conexao" role="status">Conectando ao servidor…</p>
+        </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.5.0/bundles/stomp.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
