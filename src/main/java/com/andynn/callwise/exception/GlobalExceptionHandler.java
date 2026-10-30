@@ -9,8 +9,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
+import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice(basePackages= "com.andynn.callwise.controller")
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
@@ -39,5 +41,12 @@ public class GlobalExceptionHandler {
         String mensagem = "Valor inválido para " + ex.getName() + ": " + ex.getValue();
         ErroResponse erro = new ErroResponse(400, mensagem, request.getRequestURI());
         return ResponseEntity.badRequest().body(erro);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErroResponse> tratarErroInesperado(Exception ex, HttpServletRequest request){
+        log.error("Erro inesperado em {} {}", request.getMethod(), request.getRequestURI(), ex);
+        ErroResponse erro = new ErroResponse(500, "Erro interno inesperado. Tente novamente mais tarde.", request.getRequestURI());
+        return ResponseEntity.internalServerError().body(erro);
     }
 }
